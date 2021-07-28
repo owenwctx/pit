@@ -1,10 +1,17 @@
 ---
-title: "About this site"
+title: "About"
 description: |
-  Some additional details about the website
+  Why this deep analysis of our clan's time in the Pit?
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+Pit of Heresy is a great dungeon. I thoroughly enjoy it and have run it many times since launching off the deep end of Destiny 2. As my clan, Three Days of Sorrow, began to run this more and more to stock up on prisms (RIP that farm) I started to notice that any time I ran the dungeon with 'creepmyrtle' we got through our first run really quickly.  
+
+Naturally, this made me want to test that hypothesis statistically. Empirically. Therefore, this website. 
+
+Enjoy! 
+
+meeps

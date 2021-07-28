@@ -1,6 +1,5 @@
 name: "pit"
 title: "The Joe Time Save"
-theme: theme.css
 description: |
   The Joe Time Save
 output_dir: "docs"

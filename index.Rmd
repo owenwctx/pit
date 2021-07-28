@@ -1,7 +1,7 @@
 ---
 title: "The Joe Time Save"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  Or how he runs those caves - oh my! 
 site: distill::distill_website
 ---
 
@@ -17,5 +17,48 @@ knitr::opts_chunk$set(echo = FALSE)
 # Site reference
 # https://www.andreashandel.com/posts/distill-github-website/
 
+```
+
+# The Hypothesis
+Why are we here? Simple. I want to know if creepmyrtle's approach to The Tunnels encounter in the Pit of Heresy provides a statistically significant time-saving compared to other Guardians in my clan, Three Days of Sorrow.
+
+Given the great resource of Dungeon.Report, we can quickly access and build datasets to perform this analysis and truly isolate any effect. Check out the 'Data Collection' page for more information on how I grabbed data for this project.
+
+# The Data
+We're going to use R for our analysis, which will let us read the data from Google Sheets, process that for analysis, prepare any models or statistical tests, and make some pretty charts. 
+
+Let's start by loading in some helpful packages:
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+
+library(googlesheets4)
+library(tidyverse)
+library(dplyr)
+library(car)
+library(lubridate)
+library(ggplot2)
+library(rmarkdown)
+
+```
+
+Now let's grab the data from Google Sheets. We're creating two dataframes here: `runs` for data about individual dungeon attempts and `gsums` for Guardian-specific data.
+
+```{r, echo=TRUE}
+runs <- read_sheet("https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1672282834",range = "'PitRuns'!A:AF")
+
+gsums <- read_sheet("https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1620985665",range = "'PlayerSummary'!A:G")
+
+```
+
+Let's inspect `runs` first: 
+
+```{r}
+paged_table(runs,options=NULL)
+```
+
+Now `gsums`:
+
+```{r}
+paged_table(gsums,options=NULL)
 ```
 
