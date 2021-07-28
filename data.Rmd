@@ -49,15 +49,15 @@ gsums <- read_sheet("https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4
 
 ```
 
-Let's inspect `runs` first: 
+Let's inspect `runs` first. We can definitely see some issues that need to be addressed, but nothing too complicated. 
 
 ```{r}
 datatable(runs,options=list(pageLength = 5),class='display')
 ```
 
-We definitely need to tidy this data up a bit. So we'll do that by cleaning up the date field, 
 
-Now `gsums`:
+
+Now `gsums` needs a bit more work, but that should be sorted out at the source (Google Sheets) since this is summarized data. Let's not worry about doing those transformations here though.
 
 ```{r}
 datatable(gsums,options=list(),class='display')
