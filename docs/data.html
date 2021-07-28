@@ -86,29 +86,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>The Joe Time Save</title>
+  <title>The Joe Time Save: Grabbing &amp; Prepping Data</title>
 
-  <meta property="description" itemprop="description" content="Or how he runs those caves - oh my!"/>
+  <meta property="description" itemprop="description" content="Collecting is half the fun?"/>
 
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="The Joe Time Save"/>
+  <meta property="og:title" content="The Joe Time Save: Grabbing &amp; Prepping Data"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="Or how he runs those caves - oh my!"/>
+  <meta property="og:description" content="Collecting is half the fun?"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="The Joe Time Save"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="The Joe Time Save"/>
-  <meta property="twitter:description" content="Or how he runs those caves - oh my!"/>
+  <meta property="twitter:title" content="The Joe Time Save: Grabbing &amp; Prepping Data"/>
+  <meta property="twitter:description" content="Collecting is half the fun?"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["The Joe Time Save"]},{"type":"character","attributes":{},"value":["Or how he runs those caves - oh my! \n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Grabbing & Prepping Data"]},{"type":"character","attributes":{},"value":["Collecting is half the fun? \n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2034,6 +2034,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+  <script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+  <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+  <script src="site_libs/datatables-binding-0.18/datatables.js"></script>
+  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+  <script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+  <link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+  <script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2053,7 +2062,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"The Joe Time Save","description":"Or how he runs those caves - oh my!","authors":[]}
+{"title":"Grabbing & Prepping Data","description":"Collecting is half the fun?","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2076,18 +2085,51 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>The Joe Time Save</h1>
+<h1>Grabbing &amp; Prepping Data</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Or how he runs those caves - oh my!</p></p>
+<p><p>Collecting is half the fun?</p></p>
 </div>
 
 
 <div class="d-article">
-<h1 id="the-hypothesis">The Hypothesis</h1>
-<p>Why are we here? Simple. I want to know if creepmyrtle’s approach to The Tunnels encounter in the Pit of Heresy provides a statistically significant time-saving compared to other Guardians in my clan, Three Days of Sorrow.</p>
-<p>Given the great resource of Dungeon.Report, we can quickly access and build datasets to perform this analysis and truly isolate any effect. Check out the ‘Data’ page for more information on how I grabbed and prepped the data for this project.</p>
-<h1 id="some-quick-visual-exploration">Some quick visual exploration</h1>
+<h1 id="building-the-data">Building the Data</h1>
+<p>I used Dungeon.Report to grab and build data for this project. While the information Dungeon.Report collects is limited, it does provide more than enough context to help out this analysis.</p>
+<p>You can access the raw data collection in this Google Sheet: <a href="https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1672282834" class="uri">https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1672282834</a></p>
+<h1 id="loading-prepping-for-analysis">Loading &amp; Prepping for Analysis</h1>
+<p>We’re going to use R for our analysis, which will let us read the data from Google Sheets, process that for analysis, prepare any models or statistical tests, and make some pretty charts.</p>
+<p>Let’s start by loading in some helpful packages:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidyverse/googlesheets4'>googlesheets4</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/DT'>DT</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Now let’s grab the data from Google Sheets. We’re creating two dataframes here: <code>runs</code> for data about individual dungeon attempts and <code>gsums</code> for Guardian-specific data.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>runs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/googlesheets4/man/range_read.html'>read_sheet</a></span><span class='op'>(</span><span class='st'>"https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1672282834"</span>,range <span class='op'>=</span> <span class='st'>"'PitRuns'!A:AF"</span><span class='op'>)</span>
+
+<span class='va'>gsums</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/googlesheets4/man/range_read.html'>read_sheet</a></span><span class='op'>(</span><span class='st'>"https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1620985665"</span>,range <span class='op'>=</span> <span class='st'>"'PlayerSummary'!A:G"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Let’s inspect <code>runs</code> first:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-c5c09a426ca4d09d2170" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c5c09a426ca4d09d2170">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39"],[27,28,26,42,43,44,29,21,22,20,19,18,17,16,15,12,13,14,10,7,8,9,5,6,2,3,4,1,30,35,36,37,38,39,31,32,33,34,45],["2020-06-22T00:00:00Z","2020-06-22T00:00:00Z","2020-07-20T00:00:00Z","2020-07-24T00:00:00Z","2020-08-03T00:00:00Z","2020-08-17T00:00:00Z","2020-08-18T00:00:00Z","2020-09-07T00:00:00Z","2020-09-07T00:00:00Z","2020-09-19T00:00:00Z","2020-09-20T00:00:00Z","2020-10-28T00:00:00Z","2020-11-15T00:00:00Z","2020-11-24T00:00:00Z","2020-12-08T00:00:00Z","2020-12-19T00:00:00Z","2020-12-19T00:00:00Z","2020-12-19T00:00:00Z","2021-01-17T00:00:00Z","2021-01-25T00:00:00Z","2021-01-25T00:00:00Z","2021-01-25T00:00:00Z","2021-02-01T00:00:00Z","2021-02-01T00:00:00Z","2021-02-08T00:00:00Z","2021-02-08T00:00:00Z","2021-02-08T00:00:00Z","2021-03-09T00:00:00Z","2021-06-12T00:00:00Z","2021-07-16T00:00:00Z","2021-01-21T00:00:00Z","2021-01-30T00:00:00Z","2020-12-03T00:00:00Z","2020-12-16T00:00:00Z","2021-06-16T00:00:00Z","2021-07-04T00:00:00Z","2021-07-16T00:00:00Z","2021-07-18T00:00:00Z","2020-11-30T00:00:00Z"],["6/2020","6/2020","7/2020","7/2020","8/2020","8/2020","8/2020","9/2020","9/2020","9/2020","9/2020","10/2020","11/2020","11/2020","12/2020","12/2020","12/2020","12/2020","1/2021","1/2021","1/2021","1/2021","2/2021","2/2021","2/2021","2/2021","2/2021","3/2021","6/2021","7/2021","1/2021","1/2021","12/2020","12/2020","6/2021","7/2021","7/2021","7/2021","11/2020"],["yes","no","yes","yes","yes","yes","yes","yes","no","no","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes"],["clear","xeno","clear","clear","clear","clear","clear","clear","xeno","xeno","clear","clear","clear","clear","clear","farm","farm","clear","clear","farm","farm","clear","farm","clear","farm","farm","clear","clear","clear","clear","clear","clear","xeno + clear","clear","clear","clear","clear","clear","clear"],[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,3,3,3,3,3,3,3,3,3],["1899-12-30T00:38:39Z","1899-12-30T00:33:54Z","1899-12-30T01:04:00Z","1899-12-30T00:44:14Z","1899-12-30T00:41:41Z","1899-12-30T00:52:41Z","1899-12-30T00:41:29Z","1899-12-30T00:41:41Z","1899-12-30T00:36:27Z","1899-12-30T00:28:10Z","1899-12-30T00:19:57Z","1899-12-30T00:42:10Z","1899-12-30T00:32:07Z","1899-12-30T00:47:07Z","1899-12-30T00:36:15Z","1899-12-30T00:08:38Z","1899-12-30T00:07:59Z","1899-12-30T00:38:02Z","1899-12-30T00:36:33Z","1899-12-30T00:09:48Z","1899-12-30T00:14:29Z","1899-12-30T00:54:03Z","1899-12-30T00:05:43Z","1899-12-30T00:17:11Z","1899-12-30T00:04:26Z","1899-12-30T00:06:15Z","1899-12-30T00:32:13Z","1899-12-30T00:27:04Z","1899-12-30T00:33:10Z","1899-12-30T00:38:12Z","1899-12-30T00:29:32Z","1899-12-30T00:34:55Z","1899-12-30T02:05:00Z","1899-12-30T00:40:31Z","1899-12-30T00:35:31Z","1899-12-30T00:34:41Z","1899-12-30T00:51:06Z","1899-12-30T00:25:03Z","1899-12-30T01:19:00Z"],[2319,2033,3840,2654,2501,3161,2489,2501,2187,1690,1196,2530,1926,2827,2175,518,478,2281,2193,588,869,3243,342,1030,243,375,1932,1623,1990,2292,1772,2095,7500,2431,2131,2081,3066,1503,4740],["nickslapp","mrmeeples","mrmeeples","mrmeeples","mrmeeples","nickslapp","drshots","mrmeeples","mrmeeples","creepmyrtle","talkingwires","donkler","mrmeeples","mrmeeples","talkingwires","mrmeeples","creepmyrtle","mrmeeples","mrmeeples","creepmyrtle","mrmeeples","mrmeeples","creepmyrtle","donkler","mrmeeples","mrmeeples","donkler","mrmeeples","mrmeeples","talkingwires","talkingwires","donkler","donkler","donkler","donkler","mrmeeples","mrmeeples","donkler","creepmyrtle"],["creepmyrtle","creepmyrtle","gobbluth89","nickslapp","nickslapp","mrmeeples","mrmeeples","donkler","creepmyrtle","mrmeeples","creepmyrtle","mrmeeples","talkingwires","talkingwires","mrmeeples","talkingwires","mrmeeples","talkingwires","talkingwires","mrmeeples","justvines","justvines","mrmeeples","mrmeeples","donkler","creepmyrtle","mrmeeples","donkler","cactusconor","creepmyrtle","donkler","i_am_thenight","i_am_thenight","i_am_thenight","creepmyrtle","donkler","drshots","creepmyrtle","nickslapp"],["mrmeeples","nickslapp","creepmyrtle","creepmyrtle","creepmyrtle","creepmyrtle","creepmyrtle","creepmyrtle","donkler","gobbluth89","mrmeeples","creepmyrtle","creepmyrtle","donkler","donkler","creepmyrtle","talkingwires","creepmyrtle","donkler","justvines","creepmyrtle","creepmyrtle","donkler","creepmyrtle","creepmyrtle","donkler","creepmyrtle","creepmyrtle","donkler",null,"cactusconor","cactusconor","cactusconor","cactusconor","mrmeeples","cactusconor","gobbluth89","mrmeeples","justvines"],[8.22,10.33,14,8.63,9.92,17.38,19.57,8.15,12,16,39.5,27.5,10.58,16.6,27.6,10.33,8.5,36.67,23.29,32,11.25,8.4,9.5,74,22,34,17.14,25.4,16.5,29.67,66.5,23.83,11.6,17,16.17,23.67,19.11,118,21.9],[12.4,13.75,21,9.33,6.71,10.36,12,5.92,9,12.67,14.75,12.11,36,22.17,17,29,13,32.67,34.67,10,4.43,4.19,6.5,21.33,10,19,14,36,16.14,170,15.5,12.09,6.55,8.4,9,16.5,16.44,23.25,9.94],[7.93,5.63,5.68,12.43,23.25,10.27,6.17,9.33,3.5,14,14,13.13,23.75,9.23,15.43,5.33,12,18.4,25,5,5.75,23.8571428571429,12,26,8,18,30.67,79,14.57,null,12.8,20.4,4.78,11.29,15.4285714285714,6.42,6.95,21.75,2.57],[18,6,13,16,13,8,7,13,5,3,2,4,12,10,5,3,2,3,7,1,4,15,2,1,1,1,7,5,8,6,2,6,30,8,6,6,9,1,10],[10,4,8,12,14,11,10,12,4,3,4,9,3,6,7,1,2,3,3,3,7,16,2,3,1,0,7,3,7,1,6,11,53,15,10,6,9,4,16],[15,8,19,7,4,11,12,6,10,2,4,8,4,13,7,3,0,5,4,3,4,7,1,2,1,1,3,1,7,null,5,5,40,7,7,12,19,4,28],["titan","warlock","warlock","warlock","warlock","titan","titan","warlock","warlock","hunter","warlock","titan","warlock","warlock","warlock","titan","hunter","warlock","warlock","warlock","hunter","warlock","hunter","titan","hunter","titan","titan","warlock","warlock","warlock","warlock","warlock","titan","titan","titan","warlock","warlock","titan","hunter"],["hunter","hunter","hunter","titan","titan","warlock","warlock","titan","hunter","hunter","hunter","warlock","warlock","warlock","warlock","hunter","hunter","warlock","warlock","titan","warlock","warlock","titan","warlock","hunter","hunter","warlock","titan","hunter","hunter","warlock","warlock","warlock","warlock","hunter","titan","titan","warlock","titan"],["warlock","titan","hunter","hunter","hunter","hunter","hunter","hunter","titan","hunter","warlock","hunter","hunter","titan","titan","warlock","titan","hunter*","warlock","warlock","hunter","hunter*","titan","hunter*","warlock","warlock","hunter*","hunter","titan",null,"hunter","hunter","hunter","hunter","warlock*","hunter","hunter","warlock","warlock"],[9.51666666666667,9.90333333333333,13.56,10.13,13.2933333333333,12.67,12.58,7.8,8.16666666666667,14.2233333333333,22.75,17.58,23.4433333333333,16,20.01,14.8866666666667,11.1666666666667,29.2466666666667,27.6533333333333,15.6666666666667,7.14333333333333,12.1490476190476,9.33333333333333,40.4433333333333,13.3333333333333,23.6666666666667,20.6033333333333,46.8,15.7366666666667,99.835,31.6,18.7733333333333,7.64333333333333,12.23,13.5328571428571,15.53,14.1666666666667,54.3333333333333,11.47],[14.3333333333333,6,13.3333333333333,11.6666666666667,10.3333333333333,10,9.66666666666667,10.3333333333333,6.33333333333333,2.66666666666667,3.33333333333333,7,6.33333333333333,9.66666666666667,6.33333333333333,2.33333333333333,1.33333333333333,3.66666666666667,4.66666666666667,2.33333333333333,5,12.6666666666667,1.66666666666667,2,1,0.666666666666667,5.66666666666667,3,7.33333333333333,3.5,4.33333333333333,7.33333333333333,41,10,7.66666666666667,8,12.3333333333333,3,18],[1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,1,0,0,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,1,0,1,1,0,0,0,1,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,1,0,1,0,0,0],[1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>runid<\/th>\n      <th>date<\/th>\n      <th>run.monthyear<\/th>\n      <th>completed<\/th>\n      <th>run.type<\/th>\n      <th>guardians<\/th>\n      <th>duration<\/th>\n      <th>time.seconds<\/th>\n      <th>g1<\/th>\n      <th>g2<\/th>\n      <th>g3<\/th>\n      <th>g1.kd<\/th>\n      <th>g2.kd<\/th>\n      <th>g3.kd<\/th>\n      <th>g1.deaths<\/th>\n      <th>g2.deaths<\/th>\n      <th>g3.deaths<\/th>\n      <th>g1.class<\/th>\n      <th>g2.class<\/th>\n      <th>g3.class<\/th>\n      <th>avg.kd<\/th>\n      <th>avg.deaths<\/th>\n      <th>creepmyrtle<\/th>\n      <th>mrmeeples<\/th>\n      <th>drshots<\/th>\n      <th>talkingwires<\/th>\n      <th>donkler<\/th>\n      <th>cactusconor<\/th>\n      <th>nickslapp<\/th>\n      <th>gobbluth89<\/th>\n      <th>justvines<\/th>\n      <th>i_am_thenight<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,6,8,12,13,14,15,16,17,21,22,23,24,25,26,27,28,29,30,31,32]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<p>We definitely need to tidy this data up a bit. So we’ll do that by cleaning up the date field,</p>
+<p>Now <code>gsums</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div id="htmlwidget-4f3ce38e27f047a877b2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4f3ce38e27f047a877b2">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["creepmyrtle","mrmeeples","drshots","talkingwires","donkler","cactusconor","nickslapp","gobbluth89","justvines","i_am_thenight"],[29,33,2,10,20,6,6,3,4,3],[33,30,3,18,19,6,7,2,4,3],[null,null,3,null,null,null,null,2,2,null],[null,2388.66666666667,3066,2241.75,2195.5,2073.8,3075,3066,null,2263],[null,2285.88235294118,2489,1923.75,1892.857143,null,3075,3840,3991.5,null],[null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>guardians<\/th>\n      <th>clanruns<\/th>\n      <th>dungeonreport.clears<\/th>\n      <th>nonfarm.clears<\/th>\n      <th>avg.time<\/th>\n      <th>avg.time.wjoe<\/th>\n      <th>clears.wjoe<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

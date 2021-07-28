@@ -1,0 +1,65 @@
+---
+title: "Grabbing & Prepping Data"
+description: |
+  Collecting is half the fun? 
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+# Learn more about publishing to GitHub Pages at:
+# https://rstudio.github.io/distill/publish_website.html#github-pages
+
+# Site reference
+# https://www.andreashandel.com/posts/distill-github-website/
+
+```
+
+# Building the Data
+I used Dungeon.Report to grab and build data for this project. While the information Dungeon.Report collects is limited, it does provide more than enough context to help out this analysis. 
+
+You can access the raw data collection in this Google Sheet: https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1672282834
+
+# Loading & Prepping for Analysis
+We're going to use R for our analysis, which will let us read the data from Google Sheets, process that for analysis, prepare any models or statistical tests, and make some pretty charts. 
+
+Let's start by loading in some helpful packages:
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+
+library(googlesheets4)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(lubridate)
+
+```
+
+Now let's grab the data from Google Sheets. We're creating two dataframes here: `runs` for data about individual dungeon attempts and `gsums` for Guardian-specific data.
+
+```{r, echo=TRUE}
+runs <- read_sheet("https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1672282834",range = "'PitRuns'!A:AF")
+
+gsums <- read_sheet("https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4GrphMNyzbp9VJIPYhcHtgBAY/edit#gid=1620985665",range = "'PlayerSummary'!A:G")
+
+```
+
+Let's inspect `runs` first: 
+
+```{r}
+datatable(runs,options=list(pageLength = 5),class='display')
+```
+
+We definitely need to tidy this data up a bit. So we'll do that by cleaning up the date field, 
+
+Now `gsums`:
+
+```{r}
+datatable(gsums,options=list(),class='display')
+```
+
