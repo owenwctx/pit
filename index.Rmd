@@ -34,10 +34,9 @@ Let's start by loading in some helpful packages:
 library(googlesheets4)
 library(tidyverse)
 library(dplyr)
-library(car)
-library(lubridate)
 library(ggplot2)
-library(rmarkdown)
+library(DT)
+library(lubridate)
 
 ```
 
@@ -53,12 +52,14 @@ gsums <- read_sheet("https://docs.google.com/spreadsheets/d/17D0gnlrt2qsdmKzsdK4
 Let's inspect `runs` first: 
 
 ```{r}
-paged_table(runs,options=NULL)
+datatable(runs,options=list(pageLength = 5),class='display')
 ```
+
+We definitely need to tidy this data up a bit. So we'll do that by cleaning up the date field, 
 
 Now `gsums`:
 
 ```{r}
-paged_table(gsums,options=NULL)
+datatable(gsums,options=list(),class='display')
 ```
 
