@@ -8,12 +8,6 @@ site: distill::distill_website
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
 # Site reference
 # https://www.andreashandel.com/posts/distill-github-website/
 
@@ -24,4 +18,48 @@ Why are we here? Simple. I want to know if creepmyrtle's approach to The Tunnels
 
 Given the great resource of Dungeon.Report, we can quickly access and build datasets to perform this analysis and truly isolate any effect. Check out the 'Data' page for more information on how I grabbed and prepped the data for this project.
 
-# Some quick visual exploration
+# A quick visual analysis
+Three Days of Sorrow has cleared the Pit of Heresy a combined `r format(sum(gsums$dungeonreport.clears)) #this number is wrong switch to count of rows in runs` times across all of our Guardians (including LFG runs with randos before we formed our clan). We have sworded that final boss to death 125 times, opened the entryway more times than that (accounting for xeno runs only), and suffered at the eye lasers of those ogres every. single. time.
+
+`creepmyrtle` and I (`mrmeeples`) have definitely run this the most (around 30 clears each), with `donkler` and `talkingwires` following us up at just under 20 clears. Everyone else needs to pick up the slack.
+
+```{r}
+fig1d <- gsums %>% select(guardians,clanruns,dungeonreport.clears)
+
+fig1d <- fig1d %>%
+  pivot_longer(
+    cols = -guardians,
+    names_to = "Runs",
+    values_to = "values"
+  )
+
+ggplot(fig1d, aes(fill=Runs, y = reorder(guardians, values), x= values)) +
+  geom_bar(position="dodge",stat="identity") +
+  scale_color_brewer(palette="Dark2") + theme_classic()
+```
+
+
+```{r}
+fig2d <- gsums %>% select(guardians,avg.time,avg.time.wjoe)
+
+fig2d <- fig2d %>%
+  pivot_longer(
+    cols = -guardians,
+    names_to = "clears",
+    values_to = "values"
+  )
+
+ggplot(fig2d, aes(fill=clears, y = reorder(guardians, values), x= (values/60))) +
+  geom_bar(position="dodge",stat="identity") +
+  scale_color_brewer(palette="Dark2") + theme_classic()
+```
+
+```{r}
+fig3d <- gsums %>% 
+  select(guardians,avg.time.wjoe,dungeonreport.clears,clears.wjoe)
+
+ggplot(fig3d, aes(x=avg.time.wjoe/60, y=dungeonreport.clears, color=guardians, size=clears.wjoe)) +
+  geom_point() + 
+  scale_color_brewer(palette="Dark2") + theme_classic()
+```
+

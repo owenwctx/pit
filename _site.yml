@@ -2,6 +2,7 @@ name: "pit"
 title: "The Joe Time Save"
 description: |
   The Joe Time Save
+theme: theme.css
 output_dir: "docs"
 navbar:
   left:
