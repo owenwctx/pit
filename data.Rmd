@@ -28,6 +28,9 @@ library(dplyr)
 library(ggplot2)
 library(DT)
 library(lubridate)
+library(ggthemr)
+
+ggthemr(palette='dust',set_theme=TRUE)
 
 ```
 

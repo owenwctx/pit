@@ -8,8 +8,15 @@ site: distill::distill_website
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Site reference
-# https://www.andreashandel.com/posts/distill-github-website/
+library(googlesheets4)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(lubridate)
+library(ggthemr)
+
+ggthemr(palette='dust',set_theme=TRUE)
 
 ```
 
@@ -59,7 +66,6 @@ fig3d <- gsums %>%
   select(guardians,avg.time.wjoe,dungeonreport.clears,clears.wjoe)
 
 ggplot(fig3d, aes(x=avg.time.wjoe/60, y=dungeonreport.clears, color=guardians, size=clears.wjoe)) +
-  geom_point() + 
-  scale_color_brewer(palette="Dark2") + theme_classic()
+  geom_point()
 ```
 
